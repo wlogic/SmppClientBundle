@@ -1,10 +1,11 @@
 <?php
 
-namespace NivaShs\SmppBundle\SmppLib;
+namespace Kronas\SmppClientBundle\SmppCore;
 
 /**
  * Primitive class for encapsulating PDUs
- * @author hd@onlinecity.dk
+ *
+ * @author OnlineCity <hd@onlinecity.dk>
  */
 class SmppPdu
 {
@@ -19,7 +20,7 @@ class SmppPdu
      * @param integer $id
      * @param integer $status
      * @param integer $sequence
-     * @param string $body
+     * @param string  $body
      */
     public function __construct($id, $status, $sequence, $body)
     {

@@ -1,10 +1,11 @@
 <?php
 
-namespace NivaShs\SmppBundle\SmppLib;
+namespace Kronas\SmppClientBundle\SmppCore;
 
 /**
  * Primitive class to represent SMPP optional params, also know as TLV (Tag-Length-Value) params
- * @author hd@onlinecity.dk
+ *
+ * @author OnlineCity <hd@onlinecity.dk>
  */
 class SmppTag
 {
@@ -64,11 +65,11 @@ class SmppTag
      * The value must either be pre-packed with pack(), or a valid pack-type must be specified.
      *
      * @param integer $id
-     * @param string $value
-     * @param integer $length (optional)
-     * @param string $type (optional)
+     * @param string  $value
+     * @param integer $length
+     * @param string  $type
      */
-    public function __construct($id, $value, $length=null, $type='a*')
+    public function __construct($id, $value, $length = null, $type = 'a*')
     {
         $this->id = $id;
         $this->value = $value;

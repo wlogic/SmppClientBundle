@@ -1,0 +1,16 @@
+services:
+    kronas_smpp_client.socket_transport:
+        class: Kronas\SmppClientBundle\Transport\SocketTransport
+        arguments:
+            - ['%kronas_smpp_client.host%']
+            - '%kronas_smpp_client.port%'
+        calls:
+            - [setRecvTimeout, ['%kronas_smpp_client.socket_timeout%']]
+
+    kronas_smpp_client:
+        class: Kronas\SmppClientBundle\Service\SmppWrapper
+        arguments:
+            - '@kronas_smpp_client.socket_transport'
+            - '%kronas_smpp_client.login%'
+            - '%kronas_smpp_client.password%'
+            - '%kronas_smpp_client.debug%'

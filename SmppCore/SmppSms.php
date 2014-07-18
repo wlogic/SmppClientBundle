@@ -1,16 +1,17 @@
 <?php
 
-namespace NivaShs\SmppBundle\SmppLib;
+namespace Kronas\SmppClientBundle\SmppCore;
 
-use NivaShs\SmppBundle\SmppLib\SmppAddress;
+use Kronas\SmppClientBundle\SmppCore\SmppAddress;
 
 /**
  * Primitive type to represent SMSes
- * @author hd@onlinecity.dk
+ * 
+ * @author OnlineCity <hd@onlinecity.dk>
  */
 class SmppSms extends SmppPdu
 {
-    public $service_type;
+    public $serviceType;
     public $source;
     public $destination;
     public $esmClass;
@@ -30,31 +31,46 @@ class SmppSms extends SmppPdu
     /**
      * Construct a new SMS
      *
-     * @param integer $id
-     * @param integer $status
-     * @param integer $sequence
-     * @param string $body
-     * @param string $service_type
-     * @param SmppAddress $source
-     * @param SmppAddress $destination
-     * @param integer $esmClass
-     * @param integer $protocolId
-     * @param integer $priorityFlag
-     * @param integer $registeredDelivery
-     * @param integer $dataCoding
-     * @param string $message
-     * @param array $tags (optional)
-     * @param string $scheduleDeliveryTime (optional)
-     * @param string $validityPeriod (optional)
-     * @param integer $smDefaultMsgId (optional)
-     * @param integer $replaceIfPresentFlag (optional)
+     * @param integer       $id
+     * @param integer       $status
+     * @param integer       $sequence
+     * @param string        $body
+     * @param string        $serviceType
+     * @param SmppAddress   $source
+     * @param SmppAddress   $destination
+     * @param integer       $esmClass
+     * @param integer       $protocolId
+     * @param integer       $priorityFlag
+     * @param integer       $registeredDelivery
+     * @param integer       $dataCoding
+     * @param string        $message
+     * @param array         $tags
+     * @param string        $scheduleDeliveryTime
+     * @param string        $validityPeriod
+     * @param integer       $smDefaultMsgId
+     * @param integer       $replaceIfPresentFlag
      */
-    public function __construct($id, $status, $sequence, $body, $service_type, SmppAddress $source, SmppAddress $destination,
-                                $esmClass, $protocolId, $priorityFlag, $registeredDelivery, $dataCoding, $message, $tags,
-                                $scheduleDeliveryTime=null, $validityPeriod=null, $smDefaultMsgId=null, $replaceIfPresentFlag=null)
+    public function __construct($id,
+                                $status,
+                                $sequence,
+                                $body,
+                                $serviceType,
+                                SmppAddress $source,
+                                SmppAddress $destination,
+                                $esmClass,
+                                $protocolId,
+                                $priorityFlag,
+                                $registeredDelivery,
+                                $dataCoding,
+                                $message,
+                                $tags,
+                                $scheduleDeliveryTime=null,
+                                $validityPeriod=null,
+                                $smDefaultMsgId=null,
+                                $replaceIfPresentFlag=null)
     {
         parent::__construct($id, $status, $sequence, $body);
-        $this->service_type = $service_type;
+        $this->serviceType = $serviceType;
         $this->source = $source;
         $this->destination = $destination;
         $this->esmClass = $esmClass;

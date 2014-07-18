@@ -1,12 +1,11 @@
 <?php
 
-namespace NivaShs\SmppBundle\SmppLib;
+namespace Kronas\SmppClientBundle;
 
 /**
  * Numerous constants for SMPP v3.4
  * Based on specification at: http://www.smsforum.net/SMPP_v3_4_Issue1_2.zip
  */
-
 class SMPP
 {
     // Command ids - SMPP v3.4 - 5.1.2.1 page 110-111
@@ -164,57 +163,109 @@ class SMPP
     const STATE_REJECTED = 8;
 
 
+    /**
+     * @param $statuscode
+     * @return string
+     */
     public static function getStatusMessage($statuscode)
     {
         switch ($statuscode) {
-            case SMPP::ESME_ROK: return 'No Error';
-            case SMPP::ESME_RINVMSGLEN: return 'Message Length is invalid';
-            case SMPP::ESME_RINVCMDLEN: return 'Command Length is invalid';
-            case SMPP::ESME_RINVCMDID: return 'Invalid Command ID';
-            case SMPP::ESME_RINVBNDSTS: return 'Incorrect BIND Status for given command';
-            case SMPP::ESME_RALYBND: return 'ESME Already in Bound State';
-            case SMPP::ESME_RINVPRTFLG: return 'Invalid Priority Flag';
-            case SMPP::ESME_RINVREGDLVFLG: return 'Invalid Registered Delivery Flag';
-            case SMPP::ESME_RSYSERR: return 'System Error';
-            case SMPP::ESME_RINVSRCADR: return 'Invalid Source Address';
-            case SMPP::ESME_RINVDSTADR: return 'Invalid Dest Addr';
-            case SMPP::ESME_RINVMSGID: return 'Message ID is invalid';
-            case SMPP::ESME_RBINDFAIL: return 'Bind Failed';
-            case SMPP::ESME_RINVPASWD: return 'Invalid Password';
-            case SMPP::ESME_RINVSYSID: return 'Invalid System ID';
-            case SMPP::ESME_RCANCELFAIL: return 'Cancel SM Failed';
-            case SMPP::ESME_RREPLACEFAIL: return 'Replace SM Failed';
-            case SMPP::ESME_RMSGQFUL: return 'Message Queue Full';
-            case SMPP::ESME_RINVSERTYP: return 'Invalid Service Type';
-            case SMPP::ESME_RINVNUMDESTS: return 'Invalid number of destinations';
-            case SMPP::ESME_RINVDLNAME: return 'Invalid Distribution List name';
-            case SMPP::ESME_RINVDESTFLAG: return 'Destination flag (submit_multi)';
-            case SMPP::ESME_RINVSUBREP: return 'Invalid ‘submit with replace’ request (i.e. submit_sm with replace_if_present_flag set)';
-            case SMPP::ESME_RINVESMSUBMIT: return 'Invalid esm_SUBMIT field data';
-            case SMPP::ESME_RCNTSUBDL: return 'Cannot Submit to Distribution List';
-            case SMPP::ESME_RSUBMITFAIL: return 'submit_sm or submit_multi failed';
-            case SMPP::ESME_RINVSRCTON: return 'Invalid Source address TON';
-            case SMPP::ESME_RINVSRCNPI: return 'Invalid Source address NPI';
-            case SMPP::ESME_RINVDSTTON: return 'Invalid Destination address TON';
-            case SMPP::ESME_RINVDSTNPI: return 'Invalid Destination address NPI';
-            case SMPP::ESME_RINVSYSTYP: return 'Invalid system_type field';
-            case SMPP::ESME_RINVREPFLAG: return 'Invalid replace_if_present flag';
-            case SMPP::ESME_RINVNUMMSGS: return 'Invalid number of messages';
-            case SMPP::ESME_RTHROTTLED: return 'Throttling error (ESME has exceeded allowed message limits)';
-            case SMPP::ESME_RINVSCHED: return 'Invalid Scheduled Delivery Time';
-            case SMPP::ESME_RINVEXPIRY: return 'Invalid message (Expiry time)';
-            case SMPP::ESME_RINVDFTMSGID: return 'Predefined Message Invalid or Not Found';
-            case SMPP::ESME_RX_T_APPN: return 'ESME Receiver Temporary App Error Code';
-            case SMPP::ESME_RX_P_APPN: return 'ESME Receiver Permanent App Error Code';
-            case SMPP::ESME_RX_R_APPN: return 'ESME Receiver Reject Message Error Code';
-            case SMPP::ESME_RQUERYFAIL: return 'query_sm request failed';
-            case SMPP::ESME_RINVOPTPARSTREAM: return 'Error in the optional part of the PDU Body.';
-            case SMPP::ESME_ROPTPARNOTALLWD: return 'Optional Parameter not allowed';
-            case SMPP::ESME_RINVPARLEN: return 'Invalid Parameter Length.';
-            case SMPP::ESME_RMISSINGOPTPARAM: return 'Expected Optional Parameter missing';
-            case SMPP::ESME_RINVOPTPARAMVAL: return 'Invalid Optional Parameter Value';
-            case SMPP::ESME_RDELIVERYFAILURE: return 'Delivery Failure (data_sm_resp)';
-            case SMPP::ESME_RUNKNOWNERR: return 'Unknown Error';
+            case SMPP::ESME_ROK:
+                return 'No Error';
+            case SMPP::ESME_RINVMSGLEN:
+                return 'Message Length is invalid';
+            case SMPP::ESME_RINVCMDLEN:
+                return 'Command Length is invalid';
+            case SMPP::ESME_RINVCMDID:
+                return 'Invalid Command ID';
+            case SMPP::ESME_RINVBNDSTS:
+                return 'Incorrect BIND Status for given command';
+            case SMPP::ESME_RALYBND:
+                return 'ESME Already in Bound State';
+            case SMPP::ESME_RINVPRTFLG:
+                return 'Invalid Priority Flag';
+            case SMPP::ESME_RINVREGDLVFLG:
+                return 'Invalid Registered Delivery Flag';
+            case SMPP::ESME_RSYSERR:
+                return 'System Error';
+            case SMPP::ESME_RINVSRCADR:
+                return 'Invalid Source Address';
+            case SMPP::ESME_RINVDSTADR:
+                return 'Invalid Dest Addr';
+            case SMPP::ESME_RINVMSGID:
+                return 'Message ID is invalid';
+            case SMPP::ESME_RBINDFAIL:
+                return 'Bind Failed';
+            case SMPP::ESME_RINVPASWD:
+                return 'Invalid Password';
+            case SMPP::ESME_RINVSYSID:
+                return 'Invalid System ID';
+            case SMPP::ESME_RCANCELFAIL:
+                return 'Cancel SM Failed';
+            case SMPP::ESME_RREPLACEFAIL:
+                return 'Replace SM Failed';
+            case SMPP::ESME_RMSGQFUL:
+                return 'Message Queue Full';
+            case SMPP::ESME_RINVSERTYP:
+                return 'Invalid Service Type';
+            case SMPP::ESME_RINVNUMDESTS:
+                return 'Invalid number of destinations';
+            case SMPP::ESME_RINVDLNAME:
+                return 'Invalid Distribution List name';
+            case SMPP::ESME_RINVDESTFLAG:
+                return 'Destination flag (submit_multi)';
+            case SMPP::ESME_RINVSUBREP:
+                return 'Invalid ‘submit with replace’ request (i.e. submit_sm with replace_if_present_flag set)';
+            case SMPP::ESME_RINVESMSUBMIT:
+                return 'Invalid esm_SUBMIT field data';
+            case SMPP::ESME_RCNTSUBDL:
+                return 'Cannot Submit to Distribution List';
+            case SMPP::ESME_RSUBMITFAIL:
+                return 'submit_sm or submit_multi failed';
+            case SMPP::ESME_RINVSRCTON:
+                return 'Invalid Source address TON';
+            case SMPP::ESME_RINVSRCNPI:
+                return 'Invalid Source address NPI';
+            case SMPP::ESME_RINVDSTTON:
+                return 'Invalid Destination address TON';
+            case SMPP::ESME_RINVDSTNPI:
+                return 'Invalid Destination address NPI';
+            case SMPP::ESME_RINVSYSTYP:
+                return 'Invalid system_type field';
+            case SMPP::ESME_RINVREPFLAG:
+                return 'Invalid replace_if_present flag';
+            case SMPP::ESME_RINVNUMMSGS:
+                return 'Invalid number of messages';
+            case SMPP::ESME_RTHROTTLED:
+                return 'Throttling error (ESME has exceeded allowed message limits)';
+            case SMPP::ESME_RINVSCHED:
+                return 'Invalid Scheduled Delivery Time';
+            case SMPP::ESME_RINVEXPIRY:
+                return 'Invalid message (Expiry time)';
+            case SMPP::ESME_RINVDFTMSGID:
+                return 'Predefined Message Invalid or Not Found';
+            case SMPP::ESME_RX_T_APPN:
+                return 'ESME Receiver Temporary App Error Code';
+            case SMPP::ESME_RX_P_APPN:
+                return 'ESME Receiver Permanent App Error Code';
+            case SMPP::ESME_RX_R_APPN:
+                return 'ESME Receiver Reject Message Error Code';
+            case SMPP::ESME_RQUERYFAIL:
+                return 'query_sm request failed';
+            case SMPP::ESME_RINVOPTPARSTREAM:
+                return 'Error in the optional part of the PDU Body.';
+            case SMPP::ESME_ROPTPARNOTALLWD:
+                return 'Optional Parameter not allowed';
+            case SMPP::ESME_RINVPARLEN:
+                return 'Invalid Parameter Length.';
+            case SMPP::ESME_RMISSINGOPTPARAM:
+                return 'Expected Optional Parameter missing';
+            case SMPP::ESME_RINVOPTPARAMVAL:
+                return 'Invalid Optional Parameter Value';
+            case SMPP::ESME_RDELIVERYFAILURE:
+                return 'Delivery Failure (data_sm_resp)';
+            case SMPP::ESME_RUNKNOWNERR:
+                return 'Unknown Error';
             default:
                 return 'Unknown statuscode: '.dechex($statuscode);
         }
