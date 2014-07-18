@@ -9,7 +9,9 @@ Installation
 ------------
 Add to composer.json
 
-    "kronas/smpp-client-bundle": "1.0.0-dev"
+    "require": {
+        "kronas/smpp-client-bundle": "1.0.0-dev"
+    }
 
 Add to AppKernel.php
 
