@@ -32,6 +32,8 @@ Add to config.yml
         password: %smpp_password%
         signature: %smpp_sigranure%
 
+[More configuration parameters](https://github.com/kronas/SmppClientBundle/blob/master/Resources/doc/configuration.md)
+
 Usage
 -----
 
@@ -41,4 +43,11 @@ Usage
 
 *Phone number must be in international format without "+"
 
-** Function "send" return a message ID
+**Function "send" return a message ID
+
+License
+-------
+
+This bundle is under the [MIT license](https://github.com/kronas/SmppClientBundle/blob/master/Resources/meta/LICENSE). See the complete license in the bundle:
+
+    Resources/meta/LICENSE
