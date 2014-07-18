@@ -361,6 +361,11 @@ class SmppClient
                             $scheduleDeliveryTime=null,
                             $validityPeriod=null)
     {
+        call_user_func($this->debugHandler, "Sending SMS...");
+        call_user_func($this->debugHandler, "From: ". $from->value);
+        call_user_func($this->debugHandler, "To: ". $to->value);
+        call_user_func($this->debugHandler, "Message: ". $message);
+
         $msgLength = strlen($message);
 
         if ($msgLength>160 && $dataCoding != SMPP::DATA_CODING_UCS2 && $dataCoding != SMPP::DATA_CODING_DEFAULT) {
@@ -815,6 +820,7 @@ class SmppClient
         if ($this->debug) {
             call_user_func($this->debugHandler, "Send PDU         : $length bytes");
             call_user_func($this->debugHandler, ' '.chunk_split(bin2hex($header.$pdu->body), 2, " "));
+            call_user_func($this->debugHandler, ' '.chunk_split(bin2hex($header.$pdu->body), 2, " "));
             call_user_func($this->debugHandler, ' commandId      : 0x'.dechex($pdu->id));
             call_user_func($this->debugHandler, ' sequence number : '.$pdu->sequence);
         }
@@ -882,8 +888,8 @@ class SmppClient
         if (!$bufLength) {
             return false;
         }
-        $bufLength = unpack("Nlength", $bufLength);
-        $length = $bufLength['length'];
+        $length = unpack("Nlength", $bufLength);
+        $length = $length['length'];
 
         // Read PDU headers
         $bufHeaders = $this->transport->read(12);

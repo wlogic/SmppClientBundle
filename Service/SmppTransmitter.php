@@ -30,6 +30,7 @@ class SmppTransmitter
     public function __construct(TransportInterface $transport, $login, $password, $signature, array $debug)
     {
         $this->transport = $transport;
+        $this->signature = $signature;
 
         $this->smpp = new SmppClient($this->transport);
 
