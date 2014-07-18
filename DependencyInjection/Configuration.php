@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('port')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('login')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
+            ->scalarNode('signature')->isRequired()->cannotBeEmpty()->end()
             ->scalarNode('socket_timeout')->cannotBeEmpty()->defaultValue(10000)->end()
             ->arrayNode('debug')
                 ->addDefaultsIfNotSet()

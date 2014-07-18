@@ -11,20 +11,23 @@ use Kronas\SmppClientBundle\SmppCore\SmppClient;
 /**
  * Class SmppWrapper
  */
-class SmppWrapper
+class SmppTransmitter
 {
     /** @var TransportInterface */
     private $transport;
     /** @var SmppClient */
     private $smpp;
 
+    private $signature;
+
     /**
      * @param TransportInterface $transport
-     * @param string             $userName
+     * @param string             $login
      * @param string             $password
+     * @param string             $signature
      * @param array              $debug
      */
-    public function __construct(TransportInterface $transport, $userName, $password, array $debug)
+    public function __construct(TransportInterface $transport, $login, $password, $signature, array $debug)
     {
         $this->transport = $transport;
 
@@ -34,7 +37,7 @@ class SmppWrapper
         $this->transport->debug = $debug['transport'];
 
         $this->transport->open();
-        $this->smpp->bindTransmitter($userName, $password);
+        $this->smpp->bindTransmitter($login, $password);
     }
 
     /**
@@ -46,7 +49,7 @@ class SmppWrapper
     public function send($to, $message)
     {
         $message = GsmEncoder::utf8_to_gsm0338($message);
-        $from = new SmppAddress('Ganzhelo', SMPP::TON_ALPHANUMERIC);
+        $from = new SmppAddress($this->signature, SMPP::TON_ALPHANUMERIC);
         $to = new SmppAddress(intval($to), SMPP::TON_INTERNATIONAL, SMPP::NPI_E164);
 
         return $this->smpp->sendSMS($from, $to, $message);
