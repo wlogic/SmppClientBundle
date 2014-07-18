@@ -16,12 +16,12 @@ Add to composer.json
 Add to AppKernel.php
 
     public function registerBundles()
-        {
-            $bundles = array(
-                ...
-                new Kronas\SmppClientBundle\KronasSmppClientBundle(),
-                ...
-            );
+    {
+        $bundles = array(
+            // ...
+            new Kronas\SmppClientBundle\KronasSmppClientBundle(),
+        );
+
         return $bundles;
     }
 
