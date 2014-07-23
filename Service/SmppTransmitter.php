@@ -5,6 +5,7 @@ namespace Kronas\SmppClientBundle\Service;
 use Kronas\SmppClientBundle\Encoder\GsmEncoder;
 use Kronas\SmppClientBundle\SMPP;
 use Kronas\SmppClientBundle\SmppCore\SmppAddress;
+use Kronas\SmppClientBundle\Transport\SocketTransport;
 use Kronas\SmppClientBundle\Transport\TransportInterface;
 use Kronas\SmppClientBundle\SmppCore\SmppClient;
 
@@ -13,32 +14,31 @@ use Kronas\SmppClientBundle\SmppCore\SmppClient;
  */
 class SmppTransmitter
 {
+    private $transportParamters;
+    private $login;
+    private $password;
+    private $signature;
+    private $debug;
+
     /** @var TransportInterface */
     private $transport;
     /** @var SmppClient */
     private $smpp;
 
-    private $signature;
-
     /**
-     * @param TransportInterface $transport
-     * @param string             $login
-     * @param string             $password
-     * @param string             $signature
-     * @param array              $debug
+     * @param array  $transportParamters
+     * @param string $login
+     * @param string $password
+     * @param string $signature
+     * @param array  $debug
      */
-    public function __construct(TransportInterface $transport, $login, $password, $signature, array $debug)
+    public function __construct(array $transportParamters, $login, $password, $signature, array $debug)
     {
-        $this->transport = $transport;
+        $this->transportParamters = $transportParamters;
+        $this->login = $login;
+        $this->password = $password;
         $this->signature = $signature;
-
-        $this->smpp = new SmppClient($this->transport);
-
-        $this->smpp->debug = $debug['smpp'];
-        $this->transport->debug = $debug['transport'];
-
-        $this->transport->open();
-        $this->smpp->bindTransmitter($login, $password);
+        $this->debug = $debug;
     }
 
     /**
@@ -53,6 +53,30 @@ class SmppTransmitter
         $from = new SmppAddress($this->signature, SMPP::TON_ALPHANUMERIC);
         $to = new SmppAddress(intval($to), SMPP::TON_INTERNATIONAL, SMPP::NPI_E164);
 
-        return $this->smpp->sendSMS($from, $to, $message);
+        $this->openSmppConnection();
+        $status = $this->smpp->sendSMS($from, $to, $message);
+        $this->closeSmppConnection();
+
+        return $status;
+    }
+
+    private function openSmppConnection()
+    {
+        $this->transport = new SocketTransport($this->transportParamters[0], $this->transportParamters[1]);
+        $this->transport->setSendTimeout($this->transportParamters[3]);
+
+        $this->smpp = new SmppClient($this->transport);
+
+        $this->transport->debug = $this->debug['transport'];
+        $this->smpp->debug = $this->debug['smpp'];
+
+        $this->transport->open();
+        $this->smpp->bindTransmitter($this->login, $this->password);
+    }
+
+    private function closeSmppConnection()
+    {
+        $this->smpp->close();
+        $this->transport->close();
     }
 } 
