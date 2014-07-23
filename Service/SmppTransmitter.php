@@ -54,10 +54,10 @@ class SmppTransmitter
         $to = new SmppAddress(intval($to), SMPP::TON_INTERNATIONAL, SMPP::NPI_E164);
 
         $this->openSmppConnection();
-        $status = $this->smpp->sendSMS($from, $to, $message);
+        $messageId = $this->smpp->sendSMS($from, $to, $message);
         $this->closeSmppConnection();
 
-        return $status;
+        return $messageId;
     }
 
     private function openSmppConnection()
