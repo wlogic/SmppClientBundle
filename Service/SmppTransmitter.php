@@ -63,7 +63,7 @@ class SmppTransmitter
     private function openSmppConnection()
     {
         $this->transport = new SocketTransport($this->transportParamters[0], $this->transportParamters[1]);
-        $this->transport->setSendTimeout($this->transportParamters[3]);
+        $this->transport->setSendTimeout($this->transportParamters[2]);
 
         $this->smpp = new SmppClient($this->transport);
 
