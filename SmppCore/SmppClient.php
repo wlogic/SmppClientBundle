@@ -361,10 +361,12 @@ class SmppClient
                             $scheduleDeliveryTime=null,
                             $validityPeriod=null)
     {
-        call_user_func($this->debugHandler, "Sending SMS...");
-        call_user_func($this->debugHandler, "From: ". $from->value);
-        call_user_func($this->debugHandler, "To: ". $to->value);
-        call_user_func($this->debugHandler, "Message: ". $message);
+        if ($this->debug) {
+            call_user_func($this->debugHandler, "Sending SMS...");
+            call_user_func($this->debugHandler, "From: " . $from->value);
+            call_user_func($this->debugHandler, "To: " . $to->value);
+            call_user_func($this->debugHandler, "Message: " . $message);
+        }
 
         $msgLength = strlen($message);
 
