@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony SMPP Client Bundle",
     "keywords": ["Send SMS via SMPP"],
-    "homepage": "https://github.com/kronas/SmppBundle",
+    "homepage": "https://github.com/kronas/SmppClientBundle",
     "license": "MIT",
     "authors": [
         {
@@ -14,10 +14,10 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.2",
-        "symfony/framework-bundle": "~2.2"
+        "symfony/framework-bundle": ">=2.2"
     },
     "require-dev": {
-        "symfony/yaml": "~2.1"
+        "symfony/yaml": ">=2.1"
     },
     "autoload": {
         "psr-0": { "Kronas\\SmppClientBundle": "" }
@@ -25,7 +25,7 @@
     "target-dir": "Kronas/SmppClientBundle",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev"
         }
     }
 }
