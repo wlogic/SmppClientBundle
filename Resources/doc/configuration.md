@@ -6,8 +6,7 @@ Configuration
         port: %smpp_port%
         login: %smpp_login%
         password: %smpp_password%
-        signature: %smpp_sigranure%
-        signature: %smpp_sigranure%
+        signature: %smpp_signature%
         socket_timeout: %socket_timeout%    # Dafault: 10000 ms
         debug:
             transport: %debug_transport%    # Dafault: False
