@@ -32,7 +32,7 @@ Add to config.yml
         port: %smpp_port%
         login: %smpp_login%
         password: %smpp_password%
-        signature: %smpp_sigranure%
+        signature: %smpp_signature%
 
 [More configuration parameters](https://github.com/kronas/SmppClientBundle/blob/master/Resources/doc/configuration.md)
 
