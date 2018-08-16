@@ -54,12 +54,11 @@ class SmppTransmitter
         $from = new SmppAddress($this->signature, SMPP::TON_ALPHANUMERIC);
         $to = new SmppAddress(intval($to), SMPP::TON_INTERNATIONAL, SMPP::NPI_E164);
 
+        $this->openSmppConnection();
         if ($returnStatus)
         {
             $this->smpp->setReturnStatus(true);
         }
-
-        $this->openSmppConnection();
         $response = $this->smpp->sendSMS($from, $to, $message);
         $this->closeSmppConnection();
 
