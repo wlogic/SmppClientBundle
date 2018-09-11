@@ -84,4 +84,9 @@ class SmppTransmitter
         $this->smpp->close();
         $this->transport->close();
     }
+
+    public function getLastStatusCode()
+    {
+        return $this->smpp->getLastStatus();
+    }
 } 

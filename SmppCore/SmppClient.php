@@ -94,6 +94,8 @@ class SmppClient
     protected $sequenceNumber;
     protected $sarMsgRefNum;
 
+    protected $lastStatus;
+
     /**
      * Construct the SMPP class
      * 
@@ -531,9 +533,10 @@ class SmppClient
         $response = $this->sendCommand(SMPP::SUBMIT_SM, $pdu);
         $body = unpack("a*msgid", $response->body);
 
+        $this->lastStatus = $response->status;
         if ($this->getReturnStatus())
         {
-            return $response->status;
+            return $this->lastStatus;
         }
 
         return $body['msgid'];
@@ -1022,5 +1025,10 @@ class SmppClient
     {
         $this->returnStatus = $returnStatus;
         return $this;
+    }
+
+    public function getLastStatus()
+    {
+        return $this->lastStatus;
     }
 }
