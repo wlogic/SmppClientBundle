@@ -17,8 +17,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('kronas_smpp_client');
+        $treeBuilder = new TreeBuilder('kronas_smpp_client');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
